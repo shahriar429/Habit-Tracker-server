@@ -86,18 +86,18 @@ async function run() {
       res.send(result);
     });
 
-    // // my-habits api
-    // app.get("/habits", async (req, res) => {
-    //   const email = req.query.email;
-    //   console.log("Fetching habits for:", email);
-    //   const query = {};
-    //   if (email) {
-    //     query.user_email = email;
-    //   }
-    //   const cursor = habitCollection.find(query).sort({ date: -1 });
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+    // my-habits api
+    app.get("/habits", async (req, res) => {
+      const email = req.query.email;
+      console.log("Fetching habits for:", email);
+      const query = {};
+      if (email) {
+        query.user_email = email;
+      }
+      const cursor = habitCollection.find(query).sort({ date: -1 });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // // all users public habits
     // app.get("/habits", async (req, res) => {
