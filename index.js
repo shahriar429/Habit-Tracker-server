@@ -75,16 +75,16 @@ async function run() {
       res.send(result);
     });
 
-    // // GET: Featured habits (6 newest)
-    // app.get("/featured-habits", async (req, res) => {
-    //   const cursor = habitCollection
-    //     .find() // all habits (or add { isPublic: true })
-    //     .sort({ _id: -1 }) // newest first using MongoDB ObjectId timestamp
-    //     .limit(6);
+    // GET: Featured habits (6 newest)
+    app.get("/featured-habits", async (req, res) => {
+      const cursor = habitCollection
+        .find() // all habits (or add { isPublic: true })
+        .sort({ _id: -1 }) // newest first using MongoDB ObjectId timestamp
+        .limit(6);
 
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // // my-habits api
     // app.get("/habits", async (req, res) => {
