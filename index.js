@@ -99,12 +99,12 @@ async function run() {
       res.send(result);
     });
 
-    // // all users public habits
-    // app.get("/habits", async (req, res) => {
-    //   const cursor = habitCollection.find();
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+    // all users public habits
+    app.get("/habits", async (req, res) => {
+      const cursor = habitCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // // habit-details api
     // app.get("/habits/:id", async (req, res) => {
