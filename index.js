@@ -144,24 +144,24 @@ async function run() {
     //   }
     // });
 
-    // // Update a habit by ID
-    // app.patch("/habits/update/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const updatedHabit = req.body;
+    // Update a habit by ID
+    app.patch("/habits/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedHabit = req.body;
 
-    //   const query = { _id: new ObjectId(id) };
-    //   const update = {
-    //     $set: {
-    //       title: updatedHabit.title,
-    //       description: updatedHabit.description,
-    //       category: updatedHabit.category,
-    //       image: updatedHabit.image, // new or old
-    //     },
-    //   };
+      const query = { _id: new ObjectId(id) };
+      const update = {
+        $set: {
+          title: updatedHabit.title,
+          description: updatedHabit.description,
+          category: updatedHabit.category,
+          image: updatedHabit.image, // new or old
+        },
+      };
 
-    //   const result = await habitCollection.updateOne(query, update);
-    //   res.send(result);
-    // });
+      const result = await habitCollection.updateOne(query, update);
+      res.send(result);
+    });
 
     // // delete-habit
     // app.delete("/habits/:id", async (req, res) => {
