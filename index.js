@@ -106,13 +106,13 @@ async function run() {
       res.send(result);
     });
 
-    // // habit-details api
-    // app.get("/habits/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await habitCollection.findOne(query);
-    //   res.send(result);
-    // });
+    // habit-details api
+    app.get("/habits/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await habitCollection.findOne(query);
+      res.send(result);
+    });
 
     // // Mark habit as complete (PATCH)
     // app.patch("/habits/complete/:id", async (req, res) => {
