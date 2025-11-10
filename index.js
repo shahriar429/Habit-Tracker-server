@@ -78,8 +78,8 @@ async function run() {
     // GET: Featured habits (6 newest)
     app.get("/featured-habits", async (req, res) => {
       const cursor = habitCollection
-        .find() // all habits (or add { isPublic: true })
-        .sort({ _id: -1 }) // newest first using MongoDB ObjectId timestamp
+        .find()
+        .sort({ _id: -1 })
         .limit(6);
 
       const result = await cursor.toArray();
@@ -114,35 +114,35 @@ async function run() {
       res.send(result);
     });
 
-    // // Mark habit as complete (PATCH)
-    // app.patch("/habits/complete/:id", async (req, res) => {
-    //   const { id } = req.params;
-    //   const today = new Date().toISOString().split("T")[0];
+    // Mark habit as complete (PATCH)
+    app.patch("/habits/complete/:id", async (req, res) => {
+      const { id } = req.params;
+      const today = new Date().toISOString().split("T")[0];
 
-    //   try {
-    //     const habit = await habitCollection.findOne({ _id: new ObjectId(id) });
-    //     if (!habit) return res.status(404).send({ message: "Habit not found" });
+      try {
+        const habit = await habitCollection.findOne({ _id: new ObjectId(id) });
+        if (!habit) return res.status(404).send({ message: "Habit not found" });
 
-    //     // Prevent duplicate completion for today
-    //     const completionHistory = habit.completionHistory || [];
-    //     if (completionHistory.includes(today)) {
-    //       return res
-    //         .status(400)
-    //         .send({ message: "Habit already marked complete today" });
-    //     }
+        // Prevent duplicate completion for today
+        const completionHistory = habit.completionHistory || [];
+        if (completionHistory.includes(today)) {
+          return res
+            .status(400)
+            .send({ message: "Habit already marked complete today" });
+        }
 
-    //     // Push today into completionHistory
-    //     const updatedHabit = await habitCollection.updateOne(
-    //       { _id: new ObjectId(id) },
-    //       { $push: { completionHistory: today } }
-    //     );
+        // Push today into completionHistory
+        const updatedHabit = await habitCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $push: { completionHistory: today } }
+        );
 
-    //     res.send({ message: "Habit marked complete successfully" });
-    //   } catch (err) {
-    //     console.error(err);
-    //     res.status(500).send({ message: "Server error" });
-    //   }
-    // });
+        res.send({ message: "Habit marked complete successfully" });
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      }
+    });
 
     // Update a habit by ID
     app.patch("/habits/update/:id", async (req, res) => {
@@ -155,7 +155,7 @@ async function run() {
           title: updatedHabit.title,
           description: updatedHabit.description,
           category: updatedHabit.category,
-          image: updatedHabit.image, // new or old
+          image: updatedHabit.image,
         },
       };
 
